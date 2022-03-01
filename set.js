@@ -6,7 +6,7 @@
 // Results will be printed to the JavaScript console in whichever browser the code is
 // being run in and comma-separated to make exporting them to spreadsheet platforms easier
 
-console.log("Team" + "," + "SET" ",");
+console.log("Team" + "," + "SET" + ",");
 var teams = await bbgm.idb.cache.teams.getAll();
 // create variables that will be assigned each team's wins and losses
 let teamWins = 0;
@@ -29,8 +29,7 @@ for (const t of teams) {
 	// create variables for the wins and losses of each opponent
 	let oppWins = 0;
 	let oppLosses = 0;
-	// create empty variable that will hold information from each opponent's season
-	let oppSeason = NULL;
+	// open database with games
 	var games = await bbgm.idb.cache.games.getAll();
 	// assign tid to value that will be checked during loop
 	let checkTeam = t.tid;
@@ -41,7 +40,7 @@ for (const t of teams) {
 	  // if the current team won this game
 	  if(g.won.tid == checkTeam){
 		// assign the tid of the losing team to oppSeason
-		oppSeason = await bbgm.idb.cache.teamSeasons.indexGet("teamSeasonsByTidSeason", [g.lost.tid, bbgm.g.get("season")]);
+		let oppSeason = await bbgm.idb.cache.teamSeasons.indexGet("teamSeasonsByTidSeason", [g.lost.tid, bbgm.g.get("season")]);
 		// assign the opponent's wins and losses to oppWins and oppLosses
 		oppWins = oppSeason.won;
 		oppLosses = oppSeason.lost;
