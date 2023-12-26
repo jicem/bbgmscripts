@@ -18,6 +18,10 @@ let SET = 0;
 for (const t of teams) {
 	// grab team information from current season
 	var teamSeason = await bbgm.idb.cache.teamSeasons.indexGet("teamSeasonsByTidSeason", [t.tid, bbgm.g.get("season")]);
+	if (!teamSeason) {
+		// Must be an inactive team
+		continue;
+	}
 	teamWins = teamSeason.won;
 	teamLosses = teamSeason.lost;
 	// calculate the number of games played from wins and losses
